@@ -1,2 +1,8 @@
 ipykernel
 python-dotenv
+mediapipe
+opencv-python
+numpy
+pandas
+matplotlib
+PyYAML

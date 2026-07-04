@@ -1,0 +1,57 @@
+# Forehand Angle Reference
+
+Coaching heuristics for bucketing tracked forehand swings by shot intent.
+Two angles matter most:
+
+- **Racket face angle** — how closed the strings are relative to vertical at contact.
+- **Swing path angle** — how steeply the racket travels low-to-high through contact.
+
+These should be validated against your own captured data once `features.py`
+is computing them — treat the ranges below as starting thresholds, not fixed constants.
+
+---
+
+## 1. Flat Drive
+
+| Metric | Target range |
+|---|---|
+| Racket face angle | ~10–20° closed |
+| Swing path angle | ~10–20° upward |
+
+- Lowest topspin, highest raw pace.
+- Smallest margin over the net — less forgiving of timing errors.
+- Contact point tends to be slightly further out in front of the body.
+
+---
+
+## 2. Standard Topspin
+
+| Metric | Target range |
+|---|---|
+| Racket face angle | ~30–45° closed |
+| Swing path angle | ~20–35° upward |
+
+- The default rally shot for most players — balances pace, spin, and margin.
+- Racket head dips below ball height before the low-to-high swing through contact.
+
+---
+
+## 3. Heavy Topspin / Loop
+
+| Metric | Target range |
+|---|---|
+| Racket face angle | ~45°+ closed |
+| Swing path angle | ~35–50° upward |
+
+- Trades pace for margin and a higher, deeper bounce.
+- Common on high defensive balls or when working a player out of position.
+- Steepest low-to-high path of the three; face angle needs to close further to keep the ball in.
+
+---
+
+## Notes for `features.py`
+
+When bucketing a tracked swing into one of the three categories:
+1. Compute swing path angle from wrist/racket position ~3 frames pre-contact to the contact frame.
+2. Compute racket face angle from racket-head orientation relative to the ball's incoming trajectory at the contact frame.
+3. Classify using the ranges above, but log the raw angle values too — thresholds may need tuning once you see real distributions from your footage.
